@@ -50,3 +50,50 @@ VS Code用Python: Select Interpreter選本資料夾的`.venv/Scripts/python.exe`
 檢查方式：在課程repo根目錄用已安裝Streamlit的環境執行`scripts/verify_week07_simple.py`。
 未以真實API、真人瀏覽器、目標環境安裝、雲端部署或150分鐘試教驗證時，不宣稱這些已通過。
 詳見上層雙版講義與[教師導讀](../第07週_課堂簡化版_教師導讀與修訂紀錄.md)。
+
+---
+
+## 我的作業紀錄
+
+### 作業完成情形
+
+| 練習 | 檔案 | 狀態 | 我的修改 |
+|---|---|---|---|
+| A | `student/01_inputs.py` | 完成 | 標題改為「社團迎新問候小幫手」，說明改寫成實際用途與操作方式 |
+| B | `student/02_state.py` | 完成 | 「歸零」按鈕把`st.session_state.count`設為0，取代原本的提示框 |
+| C | `student/03_form_ai.py` | 完成 | 結果區用`st.write`顯示活動名稱與負責人；`owner`為`None`時顯示「尚未指定」 |
+
+04～07為完整範例，沒有修改。
+
+### 啟動方式
+
+在本資料夾（`week07-streamlit-app`）執行：
+
+```powershell
+py -3.14 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python -m streamlit run student/01_inputs.py
+```
+
+換檔時把最後一行的檔名改成`02_state.py`或`03_form_ai.py`。真實API需要把`.env.example`另存成`.env`並私下填金鑰；`.env`已列入`.gitignore`，不會提交。
+
+### 驗證結果
+
+用Streamlit 1.63.0的AppTest實際執行三個學生檔，全部離線、0次API：
+
+| 練習 | 測試操作 | 實際結果 |
+|---|---|---|
+| A | 空白按送出；輸入「小明」再按送出 | 空白顯示「請先輸入稱呼。」；有輸入時顯示「你好， 小明」；標題已無TODO |
+| B | 連按兩次「加一」，再按「歸零」 | 普通變數1、保存的次數2；歸零後保存的次數0，沒有再出現TODO提示 |
+| C | 離線模式直接按「整理活動」 | 顯示「活動名稱： AI專題討論」「負責人： 尚未指定」 |
+
+**未測項目：**測試環境是Python 3.11（本機尚未安裝課程指定的3.14）；沒有用真人瀏覽器操作；沒有用真實API測03（預設離線）；本週沒有部署。
+
+### AI協助
+
+使用Claude（Claude Code）：依老師的TODO註解完成A、B、C三處修改，撰寫AppTest測試並執行驗證，整理本紀錄。提交前用`git diff`確認修改只在三個TODO位置，其他範例程式未變動。
+
+### 部署
+
+本週沒有部署要求，未部署。
