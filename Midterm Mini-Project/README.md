@@ -35,12 +35,14 @@
 ```powershell
 py -3.14 -m venv .venv
 .\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
+python -m pip install -r ..\requirements.txt
 Copy-Item .env.example .env
 python -m streamlit run app.py
 ```
 
 從 Repo 根目錄啟動則執行：`python -m streamlit run "Midterm Mini-Project/app.py"`。
+
+**套件清單放在 Repo 根目錄的 `requirements.txt`**，不在本資料夾。原因：Streamlit Cloud 安裝入口同層的清單時，會把含空格的路徑 `Midterm Mini-Project/requirements.txt` 拆成兩段，第一次部署因此出現「Invalid requirement」安裝失敗。說明書第 3-1 節允許清單放在入口同層或 Repo 根目錄，所以改放根目錄。
 
 ## 設定方式
 

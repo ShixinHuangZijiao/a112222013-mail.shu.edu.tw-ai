@@ -1,0 +1,5 @@
+# 期中專題（Midterm Mini-Project）用；放在Repo根目錄，因為Streamlit Cloud處理含空格的資料夾路徑時會安裝失敗。
+openai==2.49.0
+streamlit==1.63.0
+python-dotenv==1.2.3
+pydantic==2.14.1
