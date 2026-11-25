@@ -64,11 +64,13 @@ python -m streamlit run app.py
 
 | 項目 | 內容 |
 |---|---|
-| App 網址 | 待部署後填寫 |
+| App 網址 | https://shixin-internship-organizer.streamlit.app |
 | Repo／分支／入口 | `ShixinHuangZijiao/a112222013-mail.shu.edu.tw-ai`／`main`／`Midterm Mini-Project/app.py` |
-| Cloud Python 版本 | 待部署後填寫 |
-| 雲端驗收日期與結果 | 待部署後填寫 |
-| 老師觀看權限 | 待部署後確認 |
+| Cloud Python 版本 | 3.14（Advanced settings 選擇；安裝紀錄顯示 Python 3.14.10） |
+| 雲端驗收日期與結果 | 2026-11-25，雲端真實 API 兩筆皆成功（見下方「實測與未測」） |
+| 老師觀看權限 | 以「Deploy a public app」部署，公開 App，任何人可用網址開啟 |
+
+部署過程的問題：第一次部署出現「Error installing requirements」，原因是含空格的資料夾路徑；把套件清單移到 Repo 根目錄後修正。第一次雲端測試時 Secrets 沒有存成功，App 顯示「缺少 OPENAI_API_KEY」並在送出請求前停止（0 次請求）；重新設定 Secrets 後正常。
 
 ## 實測與未測
 
@@ -81,9 +83,11 @@ python -m streamlit run app.py
 | 成功後再送出空白 | 模擬 | 舊結果被清掉，只顯示錯誤 ✅ |
 | 模型拒答 | 模擬 | 顯示錯誤，不保存結果 ✅ |
 | 缺金鑰 | 離線 | 在送出請求前停止 ✅ |
-| 正常職缺（真實 API） | 未測 | 待設定金鑰後在雲端測試 |
-| 資訊不足職缺（真實 API） | 未測 | 待設定金鑰後在雲端測試 |
-| 真人瀏覽器、Cloud 部署 | 未測 | 待部署 |
+| 正常職缺（真實 API） | 雲端，2026-11-25，1 次請求 | 7 個欄位全部與原文一致，薪資、地址、日期、信箱一字不差；`missing_info` 為空清單 ✅ |
+| 資訊不足職缺（真實 API） | 雲端，2026-11-25，1 次請求 | 公司與職稱、地點時數、薪資標為「未提供」；沒有編造薪資或地點；列出 5 項應徵前該問的事 ✅ |
+| 雲端畫面操作 | 瀏覽器操作雲端網址 | 輸入、送出、結果與錯誤訊息都正常顯示 ✅ |
+
+**真實 API 請求數：共 2 次**（正常 1＋資訊不足 1）。缺金鑰那次在請求前停止，不計入。
 
 離線與模擬測試只證明程式流程正確，**不代表模型實際輸出的品質**。測試環境是 Python 3.11＋Streamlit 1.63.0＋Pydantic 2.14.1，本機尚未安裝課程指定的 3.14。
 
@@ -97,4 +101,4 @@ python -m streamlit run app.py
 
 ## AI 協助
 
-使用 Claude（Claude Code）：依我選定的題目，協助完成 A（任務規則）、B（`ProjectResult` 欄位）、C（標籤與結果區顯示）、兩份虛構測試資料、離線與模擬測試，以及本 README 和設計與驗收紀錄。真實 API 與雲端部署的測試要等我設定金鑰後親自執行並記錄。
+使用 Claude（Claude Code）：依我選定的題目，協助完成 A（任務規則）、B（`ProjectResult` 欄位）、C（標籤與結果區顯示）、兩份虛構測試資料、離線與模擬測試，以及本 README 和設計與驗收紀錄。金鑰由我自己貼到 Streamlit Secrets；雲端部署設定與兩筆真實測試由 Claude 在瀏覽器中操作，結果已逐欄對照原文。
